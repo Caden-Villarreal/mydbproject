@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Inventory</title>
+</head>
+<body>
+
+<h1>Search Inventory by Warehouse Location</h1>
+
+<form method="get" action="/inventory/search">
+    <input type="text" name="q" th:value="${q}" placeholder="Enter warehouse location"/>
+    <button type="submit">Search</button>
+</form>
+
+<hr/>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Lens</th>
+        <th>Quantity</th>
+        <th>Warehouse</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:if="${items.size() == 0}">
+        <td colspan="5">No results found</td>
+    </tr>
+
+    <tr th:each="i : ${items}">
+        <td th:text="${i.inventoryId}"></td>
+        <td th:text="${i.lens != null ? i.lens.brand + ' - ' + i.lens.lensType : 'None'}"></td>
+        <td th:text="${i.stockQuantity}"></td>
+        <td th:text="${i.warehouseLocation}"></td>
+        <td>
+            <a th:href="@{/inventory/edit/{id}(id=${i.inventoryId})}">Edit</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{/inventory/delete/{id}(id=${i.inventoryId})}" 
+               onclick="return confirm('Delete this item?');">Delete</a>
+        </td>
+    </tr>
+</table>
+
+<br/>
+<a href="/inventory">Back to Inventory List</a>
+
+</body>
+</html>

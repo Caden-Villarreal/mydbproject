@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shipping List</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <h1>Shipping Information</h1>
+
+    <a href="/shipping/new">Add New Shipping Info</a>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Shipping ID</th>
+                <th>Order ID</th>
+                <th>Carrier</th>
+                <th>Tracking Number</th>
+                <th>Ship Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ship : ${shippingList}">
+                <td th:text="${ship.shippingId}">Shipping ID</td>
+                <td th:text="${ship.order.orderId}">Order ID</td>
+                <td th:text="${ship.carrier}">Carrier</td>
+                <td th:text="${ship.trackingNumber}">Tracking Number</td>
+                <td th:text="${ship.shipDate}">Ship Date</td>
+                <td th:text="${ship.status}">Status</td>
+                <td>
+                    <a th:href="@{'/shipping/edit/' + ${ship.shippingId}}">Edit</a> |
+                    <a th:href="@{'/shipping/delete/' + ${ship.shippingId}}"
+                       onclick="return confirm('Are you sure you want to delete this shipping info?');">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

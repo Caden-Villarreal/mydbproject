@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inventory Items</title>
+</head>
+<body>
+
+<h1>All Inventory Items</h1>
+
+<a href="/inventory/new">Add New Item</a>
+&nbsp; | &nbsp;
+<a href="/inventory/search">Search by Warehouse</a>
+
+<hr/>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Lens ID</th>
+        <th>Stock Quantity</th>
+        <th>Warehouse Location</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="i : ${items}">
+        <td th:text="${i.inventoryId}"></td>
+        <td th:text="${i.lens != null ? i.lens.lensId : 'None'}"></td>
+        <td th:text="${i.stockQuantity}"></td>
+        <td th:text="${i.warehouseLocation}"></td>
+        <td>
+            <a th:href="@{/inventory/edit/{id}(id=${i.inventoryId})}">Edit</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{/inventory/delete/{id}(id=${i.inventoryId})}"
+               onclick="return confirm('Delete this item?');">Delete</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

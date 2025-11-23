@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add / Edit Customer</title>
+</head>
+<body>
+<h2 th:text="${customer.id != null} ? 'Edit Customer' : 'Add Customer'"></h2>
+
+<form th:action="@{/customers/save}" method="post">
+    <input type="hidden" name="id" th:value="${customer.id}" />
+
+    <label>First Name:</label>
+    <input type="text" name="firstName" th:value="${customer.firstName}" required/>
+    <br/>
+
+    <label>Last Name:</label>
+    <input type="text" name="lastName" th:value="${customer.lastName}" required/>
+    <br/>
+
+    <label>Email:</label>
+    <input type="email" name="email" th:value="${customer.email}" required/>
+    <br/>
+
+    <label>Phone:</label>
+    <input type="text" name="phone" th:value="${customer.phone}" required/>
+    <br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/customers}">Back to Customers List</a>
+</body>
+</html>

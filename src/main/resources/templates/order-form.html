@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add / Edit Order</title>
+</head>
+<body>
+<h2 th:text="${order.orderId != null} ? 'Edit Order' : 'Add Order'"></h2>
+
+<form th:action="@{/orders/save}" method="post">
+    <input type="hidden" name="orderId" th:value="${order.orderId}" />
+
+    <label>Customer:</label>
+    <select name="customerId">
+        <option th:each="customer : ${customers}"
+                th:value="${customer.id}"
+                th:text="${customer.firstName + ' ' + customer.lastName}"
+                th:selected="${order.customer != null} ? ${customer.id} == ${order.customer.id} : false">
+        </option>
+    </select>
+    <br/>
+
+    <label>Lens:</label>
+    <select name="lensId">
+        <option th:each="lens : ${lenses}"
+                th:value="${lens.lensId}"
+                th:text="${lens.brand + ' - ' + lens.lensType}">
+        </option>
+    </select>
+    <br/>
+
+    <label>Quantity:</label>
+    <input type="number" name="quantity"
+           th:value="${order.lineItems != null && !#lists.isEmpty(order.lineItems)} ? ${order.lineItems[0].quantity} : 1" />
+    <br/>
+
+    <label>Price:</label>
+    <input type="number" name="price" step="0.01"
+           th:value="${order.lineItems != null && !#lists.isEmpty(order.lineItems)} ? ${order.lineItems[0].price} : 0" />
+    <br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/orders}">Back to Orders List</a>
+</body>
+</html>

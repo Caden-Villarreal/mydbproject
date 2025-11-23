@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Warehouses</title></head>
+<body>
+
+<h1>Warehouse Locations</h1>
+
+<a href="/warehouses/new">Add Warehouse</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Aisle</th>
+        <th>Shelf</th>
+        <th>Bin</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="w : ${warehouses}">
+        <td th:text="${w.locationId}"></td>
+        <td th:text="${w.warehouseName}"></td>
+        <td th:text="${w.aisle}"></td>
+        <td th:text="${w.shelf}"></td>
+        <td th:text="${w.binNumber}"></td>
+        <td>
+            <a th:href="@{/warehouses/{id}/edit(id=${w.locationId})}">Edit</a> |
+            <a th:href="@{/warehouses/{id}/delete(id=${w.locationId})}">Delete</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

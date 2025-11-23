@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Addresses</title>
+</head>
+<body>
+<h2>Addresses for <span th:text="${customer.firstName + ' ' + customer.lastName}"></span></h2>
+
+<a th:href="@{/customers/{id}/addresses/new(id=${customer.id})}">Add New Address</a>
+<br/><br/>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="address : ${addresses}">
+        <td th:text="${address.addressId}"></td>
+        <td th:text="${address.addressType}"></td>
+        <td th:text="${address.street}"></td>
+        <td th:text="${address.city}"></td>
+        <td th:text="${address.state}"></td>
+        <td th:text="${address.zipCode}"></td>
+        <td>
+            <a th:href="@{/customers/{customerId}/addresses/edit/{addressId}(customerId=${customer.id}, addressId=${address.addressId})}">Edit</a> |
+            <a th:href="@{/customers/{customerId}/addresses/delete/{addressId}(customerId=${customer.id}, addressId=${address.addressId})}" onclick="return confirm('Are you sure?');">Delete</a>
+        </td>
+    </tr>
+</table>
+
+<br/>
+<a th:href="@{/customers}">Back to Customers List</a>
+</body>
+</html>

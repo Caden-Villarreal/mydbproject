@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add / Edit Address</title>
+</head>
+<body>
+<h2 th:text="${address.addressId != null} ? 'Edit Address' : 'Add Address'"></h2>
+
+<form th:action="@{/customers/{customerId}/addresses/save(customerId=${address.customer.id})}" method="post">
+    <input type="hidden" name="addressId" th:value="${address.addressId}" />
+
+    <label>Address Type:</label>
+    <input type="text" name="addressType" th:value="${address.addressType}" required/>
+    <br/>
+
+    <label>Street:</label>
+    <input type="text" name="street" th:value="${address.street}" required/>
+    <br/>
+
+    <label>City:</label>
+    <input type="text" name="city" th:value="${address.city}" required/>
+    <br/>
+
+    <label>State:</label>
+    <input type="text" name="state" th:value="${address.state}" required/>
+    <br/>
+
+    <label>Zip Code:</label>
+    <input type="text" name="zipCode" th:value="${address.zipCode}" required/>
+    <br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/customers/{id}/addresses(id=${address.customer.id})}">Back to Address List</a>
+</body>
+</html>

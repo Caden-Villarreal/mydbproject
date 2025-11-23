@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Warehouse Form</title></head>
+<body>
+
+<h1>Add / Edit Warehouse</h1>
+
+<form th:action="@{/warehouses/save}" method="post">
+    <input type="hidden" name="locationId" th:value="${warehouse.locationId}" />
+
+    Name: <input type="text" name="warehouseName" th:value="${warehouse.warehouseName}" required/><br/>
+    Aisle: <input type="text" name="aisle" th:value="${warehouse.aisle}" /><br/>
+    Shelf: <input type="text" name="shelf" th:value="${warehouse.shelf}" /><br/>
+    Bin: <input type="text" name="binNumber" th:value="${warehouse.binNumber}" /><br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<a href="/warehouses">Back</a>
+
+</body>
+</html>

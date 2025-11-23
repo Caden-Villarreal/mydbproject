@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${shipping.shippingId == null} ? 'Add Shipping Info' : 'Edit Shipping Info'">Shipping Form</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <h1 th:text="${shipping.shippingId == null} ? 'Add Shipping Info' : 'Edit Shipping Info'">Shipping Form</h1>
+
+    <form th:action="@{/shipping/save}" th:object="${shipping}" method="post">
+        <input type="hidden" th:field="*{shippingId}" />
+
+        <div>
+            <label for="order">Order:</label>
+            <select id="order" name="orderId" required>
+                <option th:each="o : ${orders}" th:value="${o.orderId}" 
+                        th:text="'Order #' + ${o.orderId}"
+                        th:selected="${shipping.order != null} ? ${o.orderId} == ${shipping.order.orderId} : false">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="carrier">Carrier:</label>
+            <input type="text" th:field="*{carrier}" id="carrier" required />
+        </div>
+
+        <div>
+            <label for="trackingNumber">Tracking Number:</label>
+            <input type="text" th:field="*{trackingNumber}" id="trackingNumber" required />
+        </div>
+
+        <div>
+            <label for="shipDate">Ship Date:</label>
+            <input type="date" th:field="*{shipDate}" id="shipDate" required />
+        </div>
+
+        <div>
+            <label for="status">Status:</label>
+            <input type="text" th:field="*{status}" id="status" required />
+        </div>
+
+        <div>
+            <button type="submit" th:text="${shipping.shippingId == null} ? 'Add' : 'Update'">Submit</button>
+            <a href="/shipping">Cancel</a>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add / Edit Inventory</title>
+</head>
+<body>
+<h2 th:text="${inventory.inventoryId != null} ? 'Edit Inventory' : 'Add Inventory'"></h2>
+
+<form th:action="@{/inventory/save}" method="post">
+    <!-- Hidden input to hold inventory ID -->
+    <input type="hidden" name="inventoryId" th:value="${inventory.inventoryId}" />
+
+    <label>Lens:</label>
+    <select name="lensId">
+        <option th:each="lens : ${lenses}" 
+                th:value="${lens.lensId}" 
+                th:text="${lens.brand + ' - ' + lens.lensType}" 
+                th:selected="${inventory.lens != null} ? ${lens.lensId} == ${inventory.lens.lensId} : false">
+        </option>
+    </select>
+    <br/>
+
+    <label>Stock Quantity:</label>
+    <input type="number" name="stockQuantity" th:value="${inventory.stockQuantity}" />
+    <br/>
+
+    <label>Warehouse Location:</label>
+    <input type="text" name="warehouseLocation" th:value="${inventory.warehouseLocation}" />
+    <br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/inventory}">Back to Inventory List</a>
+</body>
+</html>
